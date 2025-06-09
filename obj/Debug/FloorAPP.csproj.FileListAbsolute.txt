@@ -22,3 +22,5 @@ C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\FloorAPP.pdb
 C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\FloorAPP.exe.config
 C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\Views\AddEditPartnerWindow.g.cs
 C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\Views\AddEditPartnerWindow.baml
+C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\Views\PartnerHistoryWindow.baml
+C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\obj\Debug\Views\PartnerHistoryWindow.g.cs

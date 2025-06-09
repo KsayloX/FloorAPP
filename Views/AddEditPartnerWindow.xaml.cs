@@ -13,7 +13,7 @@ namespace FloorAPP.Views
         private MasterPoolBDEntities db = new MasterPoolBDEntities();
         private Partners partner;
 
-        // Для добавления
+        // Добавление
         public AddEditPartnerWindow()
         {
             InitializeComponent();
@@ -21,13 +21,12 @@ namespace FloorAPP.Views
             cmbPartnerType.ItemsSource = db.PartnerTypes.ToList();
         }
 
-        // Для редактирования
+        // Редактирование
         public AddEditPartnerWindow(Partners editPartner) : this()
         {
             partner = editPartner;
             Title = "Редактирование партнера";
             
-            // Заполняем поля
             txtTitle.Text = partner.CompanyName;
             cmbPartnerType.SelectedValue = partner.PartnerTypeId;
             txtRating.Text = partner.Rating.ToString();
@@ -39,24 +38,16 @@ namespace FloorAPP.Views
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Простая проверка
-            if (string.IsNullOrEmpty(txtTitle.Text) || cmbPartnerType.SelectedValue == null)
-            {
-                MessageBox.Show("Заполните обязательные поля!");
-                return;
-            }
-
             try
             {
-                if (partner == null) // Добавление
+                if (partner == null)
                 {
                     partner = new Partners();
                     db.Partners.Add(partner);
                 }
 
-                // Заполняем данные
-                partner.CompanyName = txtTitle.Text;
-                partner.PartnerTypeId = (int)cmbPartnerType.SelectedValue;
+                partner.CompanyName = txtTitle.Text ?? "";
+                partner.PartnerTypeId = (int)(cmbPartnerType.SelectedValue ?? 1);
                 partner.Rating = int.Parse(txtRating.Text ?? "0");
                 partner.Address = txtAddress.Text ?? "";
                 partner.DirectorName = txtDirector.Text ?? "";

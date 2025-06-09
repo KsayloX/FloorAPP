@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Covenant\source\repos\FloorAPP\FloorAPP\App.xaml
-2-292872456
+3-486781822
 2367394133
-18252744800
+1955278282
 181210845811
-MainWindow.xaml;Views\AddEditPartnerWindow.xaml;
+MainWindow.xaml;Views\AddEditPartnerWindow.xaml;Views\PartnerHistoryWindow.xaml;
 
-False
+True
 

@@ -1,10 +1,8 @@
 ﻿using FloorAPP.Data;
-using FloorAPP.Models;
 using FloorAPP.Views;
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 
 namespace FloorAPP
 {
@@ -15,7 +13,7 @@ namespace FloorAPP
         public MainWindow()
         {
             InitializeComponent();
-            LoadPartners(); // ← ДОБАВИТЬ!
+            LoadPartners();
         }
 
         // Загрузка партнеров
@@ -25,53 +23,73 @@ namespace FloorAPP
             {
                 var partners = db.Partners.Include("PartnerTypes").ToList();
 
-                // Создаем ViewModel для каждого партнера
-                var partnerViewModels = partners.Select(partner =>
+                // Простое заполнение дополнительных полей
+                foreach (var partner in partners)
                 {
-                    var totalSales = CalculateTotalSales(partner.Id);
-                    return new PartnerViewModel(partner, totalSales);
-                }).ToList();
+                    partner.Discount = CalculateDiscount(partner.Id);
+                    partner.TypeName = partner.PartnerTypes?.TypeName ?? "";
+                }
 
-                dgPartners.ItemsSource = partnerViewModels;
+                dgPartners.ItemsSource = partners;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки: {ex.Message}");
+                MessageBox.Show("Ошибка: " + ex.Message);
             }
         }
 
-        // Расчет общих продаж
-        private int CalculateTotalSales(int partnerId)
+        // Расчет скидки
+        private int CalculateDiscount(int partnerId)
         {
-            return db.PartnerProducts
+            var totalSales = db.PartnerProducts
                 .Where(pp => pp.PartnerId == partnerId)
                 .Sum(pp => (int?)pp.Quantity) ?? 0;
+
+            if (totalSales < 10000) return 0;
+            if (totalSales < 50000) return 5;
+            if (totalSales < 300000) return 10;
+            return 15;
         }
 
-        // Обработчики кнопок (добавьте если их нет)
+        // Добавить партнера
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var addWindow = new AddEditPartnerWindow();
             if (addWindow.ShowDialog() == true)
             {
-                LoadPartners(); // Обновить список
+                LoadPartners();
             }
         }
 
+        // Обновить список
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             LoadPartners();
         }
 
-        // Обработчик двойного клика для редактирования
-        private void dgPartners_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        // История продаж
+        private void btnHistory_Click(object sender, RoutedEventArgs e)
         {
-            if (dgPartners.SelectedItem is PartnerViewModel selectedPartnerVM)
+            if (dgPartners.SelectedItem is Partners selectedPartner)
             {
-                var editWindow = new AddEditPartnerWindow(selectedPartnerVM.OriginalPartner);
+                var historyWindow = new PartnerHistoryWindow(selectedPartner);
+                historyWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Выберите партнера!");
+            }
+        }
+
+        // Двойной клик - редактировать партнера
+        private void dgPartners_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (dgPartners.SelectedItem is Partners selectedPartner)
+            {
+                var editWindow = new AddEditPartnerWindow(selectedPartner);
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadPartners(); // Обновить список
+                    LoadPartners();
                 }
             }
         }

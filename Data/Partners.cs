@@ -29,6 +29,10 @@ namespace FloorAPP.Data
         public string Address { get; set; }
         public string INN { get; set; }
         public int Rating { get; set; }
+
+        // Дополнительные свойства для UI (не в БД)
+        public int Discount { get; set; }
+        public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerProducts> PartnerProducts { get; set; }

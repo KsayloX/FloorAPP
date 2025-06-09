@@ -64,6 +64,15 @@
                     Click="btnRefresh_Click"
                     Content="Обновить"
                     Foreground="White" />
+                <Button
+                    Name="btnHistory"
+                    Margin="5"
+                    Padding="15,8"
+                    Background="#67BA80"
+                    BorderThickness="0"
+                    Click="btnHistory_Click"
+                    Content="История продаж"
+                    Foreground="White" />
             </StackPanel>
 
             <!--  Кнопки  -->
