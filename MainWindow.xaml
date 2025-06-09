@@ -1,0 +1,111 @@
+﻿<Window
+    x:Class="FloorAPP.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FloorAPP"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Мастер пол - Партнеры"
+    Width="1000"
+    Height="600"
+    FontFamily="Segoe UI"
+    mc:Ignorable="d">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Шапка  -->
+        <Grid Grid.Row="0" Background="#F4E8D3">
+            <StackPanel
+                Margin="20"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Image Margin="0,0,15,0" Source="/Resource/MasterFloor.png" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Text="Мастер пол" />
+            </StackPanel>
+        </Grid>
+
+        <!--  Основное  -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Кнопки  -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                <!--  Click="btnAdd_Click"  -->
+                <Button
+                    Name="btnAdd"
+                    Margin="5"
+                    Padding="15,8"
+                    Background="#67BA80"
+                    BorderThickness="0"
+                    Click="btnAdd_Click"
+                    Content="Добавить партнера"
+                    Foreground="White" />
+                <!--  Click="btnRefresh_Click"  -->
+                <Button
+                    Name="btnRefresh"
+                    Margin="5"
+                    Padding="15,8"
+                    Background="#67BA80"
+                    BorderThickness="0"
+                    Click="btnRefresh_Click"
+                    Content="Обновить"
+                    Foreground="White" />
+            </StackPanel>
+
+            <!--  Кнопки  -->
+            <!--  MouseDoubleClick="dgPartners_MouseDoubleClick"  -->
+            <DataGrid
+                Name="dgPartners"
+                Grid.Row="1"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                MouseDoubleClick="dgPartners_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding CompanyName}"
+                        Header="Наименование" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding TypeName}"
+                        Header="Тип" />
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding Rating}"
+                        Header="Рейтинг" />
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding Discount}"
+                        Header="Скидка %" />
+                    <DataGridTextColumn
+                        Width="150"
+                        Binding="{Binding DirectorName}"
+                        Header="Директор" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding Phone}"
+                        Header="Телефон" />
+                    <DataGridTextColumn
+                        Width="150"
+                        Binding="{Binding Email}"
+                        Header="Email" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
